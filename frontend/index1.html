@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StellarOrbitTech | AI Space Operations</title>
+    <link rel="stylesheet" href="style1.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&family=Courier+Prime&display=swap" rel="stylesheet">
+    
+    <script src="//unpkg.com/three"></script>
+    <script src="//unpkg.com/globe.gl"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">INNOVIO <span class="highlight">StellarOrbit</span></div>
+   <ul class="nav-links">
+    <li><a href="index1.html">Home</a></li>
+    <li><a href="/mission">Mission</a></li>
+    <li><a href="live-ops.html">Live Ops</a></li>
+    <li><a href="weather.html">Climate</a></li>
+    <li><a href="vision.html">Vision</a></li>
+  </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div id="globeViz"></div> <div class="hero-overlay">
+            <div class="hero-content fade-in">
+                <h4>Innovio Advanced Space Technology</h4>
+                <h1>Revolutionizing Space Operations</h1>
+                <p>Empowering satellites with On-Orbit AI and Real-Time Decision Making.</p>
+                <a href="#telemetry" class="cta-button">View Live Telemetry</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="telemetry" class="container">
+        <div class="section-header">
+            <h2><i class="fa-solid fa-tower-broadcast"></i> Live Operations</h2>
+            <p>Simulated Real-Time Satellite Data Link</p>
+            <div class="divider"></div>
+        </div>
+        
+        <div class="telemetry-grid fade-in">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="traffic-lights">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="terminal-title">SAT-LINK: EIRSAT-1 // SECURE</span>
+                </div>
+                <div class="terminal-body" id="telemetry-log">
+                    <p>> Initializing uplink...</p>
+                    <p>> Handshake successful.</p>
+                    <p class="blink">> Awaiting telemetry stream...</p>
+                </div>
+            </div>
+
+            <div class="status-panel">
+                <div class="card glass">
+                    <h3>Signal Strength</h3>
+                    <div class="metric-big highlight">98.4%</div>
+                    <p class="small">Downlink Stable</p>
+                </div>
+                <div class="card glass">
+                    <h3>Anomalies</h3>
+                    <div class="metric-big red-text">0</div>
+                    <p class="small">Systems Nominal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" class="container">
+        <div class="grid-2-col">
+            <div class="card glass fade-in">
+                <div class="icon-box"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>The Challenge</h3>
+                <p>Agencies are overwhelmed by data from global events like wildfires and floods. Ground-based processing is too slow.</p>
+            </div>
+            <div class="card glass highlight-border fade-in">
+                <div class="icon-box"><i class="fa-solid fa-microchip"></i></div>
+                <h3>The Solution</h3>
+                <p><strong>Edge AI Hardware:</strong> Models trained on ground are deployed to orbit, allowing satellites to process images and detect fires instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="container">
+        <div class="section-header">
+            <h2>Mission Roadmap</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass">
+                    <span class="date">2023</span>
+                    <h3>Concept & Design</h3>
+                    <p>Initial AI model architecture and EIRSAT-1 partnership established.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass">
+                    <span class="date">2024</span>
+                    <h3>Launch & Validation</h3>
+                    <p>Deployment of initial algorithms on orbit. First successful anomaly detection.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass">
+                    <span class="date">2025</span>
+                    <h3>Swarm Intelligence</h3>
+                    <p>Multi-agent systems enabled. Satellites begin communicating autonomously.</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content glass">
+                    <span class="date">2030</span>
+                    <h3>Deep Space Ops</h3>
+                    <p>Fully autonomous missions to Mars and beyond with zero ground intervention.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="container">
+        <div class="section-header">
+            <h2>Core Architecture</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="grid-3-col">
+            <div class="tech-card glass fade-in">
+                <i class="fa-solid fa-brain icon-big"></i>
+                <h3>Neural Networks</h3>
+                <p>On-board deep learning for pattern recognition.</p>
+            </div>
+            <div class="tech-card glass fade-in">
+                <i class="fa-solid fa-layer-group icon-big"></i>
+                <h3>Sensor Fusion</h3>
+                <p>LIDAR + Radar + Optical input integration.</p>
+            </div>
+            <div class="tech-card glass fade-in">
+                <i class="fa-solid fa-shield-halved icon-big"></i>
+                <h3>iCPS Security</h3>
+                <p>Hardware-level protection against cyber threats.</p>
+            </div>
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <div class="bot-info">
+                    <div class="dot green"></div>
+                    <span>Stellar AI Support</span>
+                </div>
+                <button id="close-chat"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="chat-body" id="chat-body">
+                <div class="message bot-msg">
+                    <p>Hello! I am the StellarOrbit AI. Ask me about EIRSAT-1 or our detection systems.</p>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="chat-input" placeholder="Type a command...">
+                <button id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo">INNOVIO</div>
+            <p>&copy; 2025 StellarOrbitTech. All Systems Operational.</p>
+        </div>
+    </footer>
+
+    <script src="script1.js"></script>
+</body>
+</html>

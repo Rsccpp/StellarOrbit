@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceVision AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+   <nav class="navbar">
+        <div class="logo">INNOVIO <span class="highlight">StellarOrbit</span></div>
+   <ul class="nav-links">
+    <li><a href="index1.html">Home</a></li>
+    <li><a href="/mission">Mission</a></li>
+    <li><a href="live-ops.html">Live Ops</a></li>
+    <li><a href="weather.html">Climate</a></li>
+    <li><a href="vision.html">Vision</a></li>
+  </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <br> <br> <br>
+    <main>
+        <div class="analysis-module">
+            <h2>1. Select Analysis Module</h2>
+            <select id="analysisType">
+                <option value="water">Water Body Detection</option>
+                <option value="fire">Forest Fire Hotspots</option>
+                <option value="crop">Crop Detection</option>
+            </select>
+        </div>
+
+        <div class="upload-container">
+            <h2>2. Upload Image</h2>
+            <p>Upload a satellite-like image (JPG/PNG) to analyze.</p>
+            <input type="file" id="imageUpload" accept="image/*">
+            <button id="analyzeButton">Analyze Image</button>
+        </div>
+
+        <div id="resultsContainer" class="hidden">
+            <h2>Analysis Results</h2>
+            <div id="loadingSpinner" class="hidden"></div>
+            <p id="statusMessage"></p>
+
+            <div id="analysisStats" class="hidden">
+                <h3>📊 Analysis Data</h3>
+                <p id="statsText"></p>
+            </div>
+
+            <div class="image-comparison">
+                <div>
+                    <h3>Original Image</h3>
+                    <img id="originalImage" src="" alt="Original Upload">
+                </div>
+                <div>
+                    <h3>Analyzed Image (Water in Red)</h3>
+                    <img id="resultImage" src="" alt="Analyzed Result">
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="logo">INNOVIO</div>
+            <p>&copy; 2025 StellarOrbitTech. All Systems Operational.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
