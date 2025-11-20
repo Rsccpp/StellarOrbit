@@ -1,8 +1,12 @@
 # 🌍 SpaceVision AI  
+
 ### Satellite Image Analyzer for Disaster & Environmental Monitoring
 
 SpaceVision AI is a web-based platform that analyzes satellite images using AI models to automatically detect and monitor:
 
+---
+
+## ✨ Features
 - 🔥 Forest Fire Hotspots  
 - 💧 Water Body Changes  
 - 🏙️ Urban Expansion  
@@ -16,22 +20,18 @@ It includes a FastAPI backend, modular analysis models, and a React frontend for
 
 ## 📁 Project Structure
 spacevision_ai/
-├── backend/
-│ ├── app.py
-│ ├── requirements.txt
-│ ├── Dockerfile
-│ ├── analysis/
-│ │ ├── water_detector.py
-│ │ ├── fire_detector.py
-│ │ ├── urban_change.py
-│ │ ├── vegetation_health.py
-│ │ └── models.py
-│ ├── utils/
-│ │ ├── image_io.py
-│ │ └── geoutil.py
-│ └── uploads/
-│
-├── frontend/
+   └── backend/
+      ├── app.py
+      ├──  requirements.txt
+      └── analysis/
+          ├── crop_analyzer.py
+          ├── fire_detector.py
+          ├── water_detector.py
+      └── uploads/
+    └── fire
+        └── images
+        └── masks
+    ├── frontend/
 │ ├── package.json
 │ └── src/
 │ ├── App.jsx
