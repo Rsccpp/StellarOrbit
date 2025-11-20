@@ -19,7 +19,7 @@ It includes a FastAPI backend, modular analysis models, and a React frontend for
 ---
 
 ## 📁 Project Structure
-
+```text
 SpaceVision_AI/
 ├── .ipynb_checkpoints/
 │   └── Train_Fire_Model-checkpoint.ipynb
@@ -71,7 +71,7 @@ SpaceVision_AI/
 ├── .gitignore
 └── README.md
 
-
+```
 ---
 
 ## 🚀 Features
