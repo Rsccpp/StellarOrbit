@@ -19,31 +19,58 @@ It includes a FastAPI backend, modular analysis models, and a React frontend for
 ---
 
 ## 📁 Project Structure
-spacevision_ai/
-   └── backend/
-      ├── app.py
-      ├──  requirements.txt
-      └── analysis/
-          ├── crop_analyzer.py
-          ├── fire_detector.py
-          ├── water_detector.py
-      └── uploads/
-    └── fire
-        └── images
-        └── masks
-    ├── frontend/
-│ ├── package.json
-│ └── src/
-│ ├── App.jsx
-│ ├── components/
-│ │ ├── UploadForm.jsx
-│ │ └── ResultsCard.jsx
-│ └── styles.css
+
+SpaceVision_AI/
+├── .ipynb_checkpoints/
+│   └── Train_Fire_Model-checkpoint.ipynb
 │
-├── models/
-├── notebooks/
-├── docker-compose.yml
+├── kaggle/
+│   └── (Kaggle datasets / configs)
+│
+├── backend/
+│   ├── analysis/
+│   │   ├── fire_detector.py
+│   │   ├── water_detector.py
+│   │   ├── vegetation_health.py
+│   │   ├── urban_change.py
+│   │   └── __init__.py
+│   │
+│   ├── static/
+│   │   └── (static files if needed)
+│   │
+│   ├── uploads/
+│   │   └── (uploaded images will be stored here)
+│   │
+│   ├── venv/
+│   │   └── (virtual environment files)
+│   │
+│   ├── app.py
+│   └── requirements.txt
+│
+├── fire/
+│   ├── images/
+│   │   ├── fire/
+│   │   └── not_fire/
+│   │
+│   └── masks/
+│
+├── frontend/
+│   ├── index1.html
+│   ├── live-Ops.html
+│   ├── mission.html
+│   ├── vision.html
+│   ├── weather.html
+│   ├── technology.html
+│   ├── script.js
+│   ├── script1.js
+│   ├── style.css
+│   ├── style1.css
+│   └── (other frontend files)
+│
+├── kaggle.json
+├── .gitignore
 └── README.md
+
 
 ---
 
