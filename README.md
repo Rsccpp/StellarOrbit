@@ -105,15 +105,9 @@ cd spacevision_ai
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn app:app --reload
-```
-### 3️⃣ Frontend Setup
-```bash
-cd ../frontend
-npm install
-npm run dev
-```
+python app.py
 
+```
 ### 🤝 Contributing
 
 Pull requests and issues are welcome!
