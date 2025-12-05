@@ -98,7 +98,7 @@ SpaceVision_AI/
 ### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/Rsccpp/spacevision_ai.git
-cd spacevision_ai
+cd StellarOrbit
 
 ```
 ### 2️⃣ Backend Setup
