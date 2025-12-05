@@ -86,7 +86,7 @@ document.getElementById('analyzeButton').addEventListener('click', () => {
 
     // --- Call the Backend API ---
     // The URL matches the @app.route in app.py
-    const apiEndpoint = `http://127.0.0.1:5000/analyze/${analysisType}`;
+    const apiEndpoint = `http://51.21.170.200:5000/analyze/${analysisType}`;
 
     fetch(apiEndpoint, {
         method: 'POST',
