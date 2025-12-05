@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Chatbot Widget</title>
+    <link rel="stylesheet" href="styleChat.css">
+</head>
+<body>
+
+    <button class="chatbot-toggler" onclick="toggleChatbot()">
+        <span class="material-symbols-rounded">💬</span>
+    </button>
+
+    <div class="chatbot-popup" id="chatbot-popup">
+        <div class="chat-header">
+            <span>StellerOrbit AI Assistant</span>
+            <button class="close-btn" onclick="toggleChatbot()">×</button>
+        </div>
+        
+        <ul class="chat-box" id="chat-box">
+            <li class="chat incoming">
+                <p>Hi there! How can I help you today?</p>
+            </li>
+        </ul>
+        
+        <div class="chat-input">
+            <textarea id="user-input" placeholder="Enter a message..." required></textarea>
+            <button id="send-btn" class="material-symbols-rounded">➤</button>
+        </div>
+    </div>
+    <script src="[https://cdn.jsdelivr.net/npm/marked/marked.min.js](https://cdn.jsdelivr.net/npm/marked/marked.min.js)"></script>
+
+    <script src="scriptChat.js"></script>
+</body>
+</html>
