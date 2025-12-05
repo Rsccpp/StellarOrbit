@@ -175,7 +175,7 @@ def analyze_endpoint(analysis_type):
             print(f"✅ Result saved: {result_path}")
 
             # 4. Generate URL
-            result_url = f"http://127.0.0.1:5000/static/results/{output_filename}"
+            result_url = f"/static/results/{output_filename}"
 
             return jsonify({
                 'message': 'Analysis complete',
