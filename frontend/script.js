@@ -148,3 +148,68 @@ document.getElementById('analyzeButton').addEventListener('click', () => {
 });
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    const terminal = document.getElementById('telemetry-log');
+
+    // Startup ASCII Art
+    const asciiArt = [
+        "Initializing StellarOrbit v2.4...",
+        "Loading Core Modules... [OK]",
+        "Connecting to SatLink-Alpha... [OK]",
+        "Decrypting Secure Stream... [OK]",
+        "----------------------------------------"
+    ];
+
+    // List of fake space messages
+    const logMessages = [
+        { type: 'info', msg: "Heartbeat signal received from Sat-4" },
+        { type: 'info', msg: "Solar array efficiency at 98.4%" },
+        { type: 'info', msg: "Buffer flushed: 4024 bytes" },
+        { type: 'warn', msg: "Thermal spike detected in sector 7G" },
+        { type: 'info', msg: "Adjusting orbital trajectory..." },
+        { type: 'err',  msg: "Packet loss on uplink channel 2 (Retrying)" },
+        { type: 'info', msg: "Image compression algorithm optimized" },
+        { type: 'info', msg: "Spectrometry analysis complete" },
+        { type: 'warn', msg: "Latency jitter detected: 45ms" },
+        { type: 'info', msg: "Syncing database with ground station" }
+    ];
+
+    // Helper: Print a single line
+    function printLine(text, type = 'info') {
+        const line = document.createElement('div');
+        line.className = 'log-line';
+        
+        // Create Timestamp
+        const now = new Date();
+        const time = now.toLocaleTimeString('en-US', { hour12: false }) + "." + String(now.getMilliseconds()).padStart(3, '0');
+        
+        // Determine color class
+        let colorClass = 'log-info';
+        if(type === 'warn') colorClass = 'log-warn';
+        if(type === 'err') colorClass = 'log-err';
+
+        line.innerHTML = `<span class="log-ts">[${time}]</span> <span class="${colorClass}">${text}</span>`;
+        
+        terminal.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight; // Auto Scroll to bottom
+    }
+
+    // 1. Run Startup Sequence
+    let delay = 0;
+    asciiArt.forEach((msg, index) => {
+        setTimeout(() => {
+            printLine(msg, 'info');
+        }, index * 400); // Stagger them
+        delay = index * 400;
+    });
+
+    // 2. Start Infinite Loop after startup
+    setTimeout(() => {
+        setInterval(() => {
+            const randomLog = logMessages[Math.floor(Math.random() * logMessages.length)];
+            printLine(randomLog.msg, randomLog.type);
+        }, 2000); // New log every 2 seconds
+    }, delay + 1000);
+
+});
+

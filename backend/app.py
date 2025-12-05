@@ -1,155 +1,204 @@
 import os
-from flask import Flask, request, jsonify, send_from_directory, url_for
+import cv2
+import numpy as np
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from analysis.water_detector import detect_water # Import our "AI" function
-from analysis.crop_analyzer import analyze_crop # <--- ADD THIS IMPORT
-from analysis.fire_detector import detect_fire
 
-# --- Configuration ---
-UPLOAD_FOLDER = 'uploads'
-RESULT_FOLDER = os.path.join('static', 'results')
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'tif', 'tiff'}
+# --- AI IMPORTS ---
+# Only import these if you have tensorflow installed
+try:
+    from tensorflow.keras.models import load_model
+    from tensorflow.keras.preprocessing.image import img_to_array
+    AI_AVAILABLE = True
+except ImportError:
+    print("⚠ TensorFlow not found. AI features will be disabled.")
+    AI_AVAILABLE = False
 
 app = Flask(__name__)
+CORS(app)
+
+# --- CONFIGURATION ---
+# Get the absolute path to the backend folder
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+# Define Paths
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
+STATIC_FOLDER = os.path.join(BASE_DIR, 'static')
+RESULT_FOLDER = os.path.join(STATIC_FOLDER, 'results')
+FRONTEND_FOLDER = os.path.join(BASE_DIR, '../frontend')
+
+# CORRECT PATH FOR MODEL: backend/analysis/fire_detection_model.h5
+MODEL_PATH = os.path.join(BASE_DIR, 'analysis', 'fire_detection_model.h5')
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['RESULT_FOLDER'] = RESULT_FOLDER
-CORS(app) # Allows our frontend to talk to our backend
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'tif', 'tiff', 'webp'}
 
 # Create directories if they don't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
+# --- LOAD AI MODEL ---
+fire_model = None
+if AI_AVAILABLE and os.path.exists(MODEL_PATH):
+    print(f"Loading AI Model from: {MODEL_PATH}")
+    try:
+        fire_model = load_model(MODEL_PATH)
+        print("✅ Fire Detection Model Loaded Successfully!")
+    except Exception as e:
+        print(f"❌ Error loading model: {e}")
+else:
+    print(f"⚠ Model not found at {MODEL_PATH} or TensorFlow missing. Using fallback logic.")
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# --- API Endpoint for Water Analysis ---
-@app.route('/analyze/water', methods=['POST'])
-def analyze_water_endpoint():
+# --- IMAGE PROCESSING LOGIC ---
+def process_image(filepath, analysis_type):
+    img = cv2.imread(filepath)
+    if img is None:
+        return None, None
+
+    processed_img = img.copy()
+    total_pixels = img.shape[0] * img.shape[1]
+    detected_pixels = 0
+    method = "Color Spectrum Analysis"
+
+    # 1. WATER DETECTION (Blue)
+    if analysis_type == 'water':
+        method = "Spectral Water Detection"
+        lower_bound = np.array([100, 50, 50])
+        upper_bound = np.array([255, 255, 255])
+        mask = cv2.inRange(img, lower_bound, upper_bound)
+        processed_img[mask > 0] = [0, 0, 255] # Red Highlight
+        detected_pixels = np.count_nonzero(mask)
+
+    # 2. FIRE DETECTION (AI MODEL)
+    elif analysis_type == 'fire':
+        # 
+        if fire_model:
+            method = "Deep Learning (CNN)"
+            try:
+                # Preprocess for Model (Assuming 224x224 RGB input)
+                # Adjust (224, 224) if your model was trained on 64x64 or 128x128
+                target_size = (224, 224) 
+                
+                rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                resized = cv2.resize(rgb_img, target_size)
+                img_array = img_to_array(resized)
+                img_array = np.expand_dims(img_array, axis=0)
+                img_array = img_array / 255.0 # Normalize (0-1)
+
+                # Predict
+                prediction = fire_model.predict(img_array)
+                confidence = prediction[0][0] # Assuming binary output [0-1]
+
+                if confidence > 0.5: # Threshold
+                    # If fire detected, draw a box/text
+                    h, w, _ = img.shape
+                    cv2.rectangle(processed_img, (50, 50), (w-50, h-50), (0, 0, 255), 5)
+                    cv2.putText(processed_img, f"FIRE DETECTED: {round(confidence*100)}%", (50, 40), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                    detected_pixels = total_pixels # Flag whole image
+                else:
+                    cv2.putText(processed_img, "NO FIRE DETECTED", (50, 40), 
+                               cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+            except Exception as e:
+                print(f"AI Prediction Failed: {e}")
+                method = "AI Failed - Using Fallback"
+                # Fallback to Color
+        
+        # If model missing or failed, fallback to color
+        if method != "Deep Learning (CNN)":
+            method = "Thermal Hotspot (Fallback)"
+            hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+            # Red range
+            lower_red1 = np.array([0, 70, 50])
+            upper_red1 = np.array([10, 255, 255])
+            mask = cv2.inRange(hsv, lower_red1, upper_red1)
+            processed_img[mask > 0] = [0, 255, 0] # Green Highlight
+            detected_pixels = np.count_nonzero(mask)
+
+    # 3. CROP DETECTION (Green)
+    elif analysis_type == 'crop':
+        method = "NDVI Vegetation Index"
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        lower_green = np.array([35, 40, 40])
+        upper_green = np.array([85, 255, 255])
+        mask = cv2.inRange(hsv, lower_green, upper_green)
+        processed_img[mask > 0] = [0, 0, 255] # Red Highlight
+        detected_pixels = np.count_nonzero(mask)
+
+    # Calculate Percentage
+    percentage = round((detected_pixels / total_pixels) * 100, 2)
+
+    stats = {
+        'total_pixels': total_pixels,
+        'water_pixels': detected_pixels, # Keep key consistent for frontend
+        'water_percentage': percentage,
+        'analysis_method': method
+    }
+
+    return processed_img, stats
+
+# --- API ENDPOINT ---
+@app.route('/analyze/<analysis_type>', methods=['POST'])
+def analyze_endpoint(analysis_type):
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     
     file = request.files['file']
-    
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     
     if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(upload_path)
+        try:
+            # 1. Save Raw Upload
+            filename = secure_filename(file.filename)
+            upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(upload_path)
+            print(f"✅ Input saved: {upload_path}")
 
-        # --- (CHANGED) Call the Analysis Function ---
-        # It now returns a dictionary with 'result_path' and 'stats'
-        analysis_data = detect_water(upload_path, app.config['RESULT_FOLDER'])
-        
-        if analysis_data is None:
-            return jsonify({'error': 'Could not process image'}), 500
+            # 2. Process Image
+            processed_img, stats = process_image(upload_path, analysis_type)
+            
+            if processed_img is None:
+                return jsonify({'error': 'Could not read image data'}), 500
 
-        # Get the relative path from the dictionary
-        result_image_path = analysis_data['result_path']
-        
-        # Get the stats from the dictionary
-        stats_data = analysis_data['stats']
+            # 3. Save Result
+            output_filename = f"result_{analysis_type}_{filename}"
+            result_path = os.path.join(app.config['RESULT_FOLDER'], output_filename)
+            cv2.imwrite(result_path, processed_img)
+            print(f"✅ Result saved: {result_path}")
 
-        # Return the *full URL* to the resulting image
-        result_url = url_for('static', filename=result_image_path, _external=True)
-        
-        # --- (CHANGED) Add stats to the JSON response ---
-        return jsonify({
-            'message': 'Analysis complete',
-            'result_url': result_url,
-            'stats': stats_data  # Pass the stats dictionary
-        })
+            # 4. Generate URL
+            result_url = f"http://127.0.0.1:5000/static/results/{output_filename}"
+
+            return jsonify({
+                'message': 'Analysis complete',
+                'result_url': result_url,
+                'stats': stats
+            })
+
+        except Exception as e:
+            print(f"❌ Error: {e}")
+            return jsonify({'error': str(e)}), 500
     else:
         return jsonify({'error': 'File type not allowed'}), 400
 
-# --- NEW ROUTE FOR CROP ANALYSIS ---
-@app.route('/analyze/crop', methods=['POST'])
-def analyze_crop_endpoint():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    
-    file = request.files['file']
-    
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-    
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(upload_path)
-
-        # Call the Crop Analysis Function
-        analysis_data = analyze_crop(upload_path, app.config['RESULT_FOLDER'])
-        
-        if analysis_data is None:
-            return jsonify({'error': 'Could not process image'}), 500
-
-        result_url = url_for('static', filename=analysis_data['result_path'], _external=True)
-        
-        return jsonify({
-            'message': 'Analysis complete',
-            'result_url': result_url,
-            'stats': analysis_data['stats']
-        })
-    else:
-        return jsonify({'error': 'File type not allowed'}), 400
-
-
-# --- NEW ROUTE FOR FIRE DETECTOR ---
-@app.route('/analyze/fire', methods=['POST'])
-def analyze_fire_endpoint():
-    # (Copy the exact same logic from your /analyze/water endpoint)
-    # Just change:
-    # 1. detect_water(...) -> detect_fire(...)
-    # 2. Return result
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-        
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        upload_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(upload_path)
-
-        # --- Call Fire Detector ---
-        analysis_data = detect_fire(upload_path, app.config['RESULT_FOLDER'])
-        
-        if analysis_data is None:
-            return jsonify({'error': 'Could not process image'}), 500
-
-        result_url = url_for('static', filename=analysis_data['result_path'], _external=True)
-        
-        return jsonify({
-            'message': 'Analysis complete',
-            'result_url': result_url,
-            'stats': analysis_data['stats']
-        })
-    else:
-        return jsonify({'error': 'File type not allowed'}), 400
-
-# --- Serve Frontend ---
-# This part serves your index.html from the *sibling* 'frontend' folder
+# --- FRONTEND ROUTES ---
 @app.route('/')
 def serve_index():
-    return send_from_directory('../frontend', 'index1.html')
-
-@app.route('/mission')
-def serve_mission():
-    return send_from_directory('../frontend', 'mission.html')
-
+    if os.path.exists(os.path.join(FRONTEND_FOLDER, 'index.html')):
+        return send_from_directory(FRONTEND_FOLDER, 'index.html')
+    return send_from_directory(FRONTEND_FOLDER, 'index1.html')
 
 @app.route('/<path:filename>')
-def serve_frontend_files(filename):
-    # This serves style.css and script.js
-    return send_from_directory('../frontend', filename)
+def serve_static_files(filename):
+    return send_from_directory(FRONTEND_FOLDER, filename)
 
 if __name__ == '__main__':
-    # 'static_folder' is automatically served by Flask at /static
-    # so our results in /static/results are accessible
+    print("🚀 StellarOrbit Backend Initialized...")
     app.run(debug=True, port=5000)

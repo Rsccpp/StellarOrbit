@@ -5,23 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mission Control | Live Ops</title>
-    <link rel="stylesheet" href="style.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&family=Courier+Prime&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">INNOVIO <span class="highlight">StellarOrbit</span></div>
+        <div class="logo"> <span class="highlight">StellarOrbit</span></div>
         <ul class="nav-links">
-            <li><a href="index1.html">Home</a></li>
-            <li><a href="/mission">Mission</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mission.html">Mission</a></li>
             <li><a href="live-ops.html">Live Ops</a></li>
-            <li><a href="weather.html">Climate</a></li>
+            <!-- <li><a href="weather.html">Climate</a></li> -->
             <li><a href="vision.html">Vision</a></li>
         </ul>
         <div class="menu-toggle" id="mobile-menu">
@@ -29,69 +31,132 @@
         </div>
     </nav>
 
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-satellite-dish"></i> STELLAR<span class="highlight">ORBIT</span>
+        </div>
+        <div class="status-indicator">
+            <span class="blink"></span> SENSORS ACTIVE
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mission.html">Mission</a></li>
+            <li><a href="live-ops.html" class="active">Live Ops</a></li>
+            <li><a href="vision.html">Vision</a></li>
+        </ul>
+    </nav>
+
     <div class="dashboard-container fade-in">
 
-        <div class="dash-header">
-            <div class="stat-box glass">
-                <p>MISSION TIME</p>
-                <h3 id="mission-timer">T+ 04:22:10</h3>
+        <div class="stats-row">
+            <div class="glass-panel stat-box">
+                <p class="stat-label">PROXIMITY ALERTS</p>
+                <h3 id="prox-count" style="color: #ffbd2e">0</h3>
             </div>
-            <div class="stat-box glass">
-                <p>ACTIVE SATELLITES</p>
-                <h3 class="highlight">4 / 12</h3>
+            <br>
+            <div class="glass-panel stat-box">
+                <p class="stat-label">SIGNAL NOISE</p>
+                <h3 id="sig-noise">-98 dBm</h3>
             </div>
-            <div class="stat-box glass">
-                <p>SYSTEM HEALTH</p>
-                <h3 class="green-text">NOMINAL</h3>
+            <br>
+            <div class="glass-panel stat-box">
+                <p class="stat-label">ORBITAL DRIFT</p>
+                <h3 class="green-text">0.004°</h3>
             </div>
-            <div class="stat-box glass">
-                <p>NEXT DOWNLINK</p>
-                <h3>00:14:05</h3>
+            <br>
+            <div class="glass-panel stat-box">
+                <p class="stat-label">BATTERY CYCLES</p>
+                <h3>14,203</h3>
             </div>
         </div>
+        <br>
 
         <div class="dash-grid">
-
             <div class="terminal-window glass large-terminal">
                 <div class="terminal-header">
-                    <span class="terminal-title">> MASTER LOG STREAM</span>
+                    <div class="term-title"><i class="fa-solid fa-shield-halved"></i> DEBRIS_AVOIDANCE.sys</div>
                 </div>
-                <div class="terminal-body" id="telemetry-log">
+                <div class="terminal-body" id="telemetry-log"></div>
+                <div class="terminal-footer">
+                    <span class="prompt">sys@radar:~#</span>
+                    <span class="typing-cursor">█</span>
                 </div>
             </div>
 
             <div class="dash-col">
-                <div class="card glass">
-                    <h4>Solar Array Efficiency</h4>
-                    <canvas id="powerChart"></canvas>
-                </div>
+                <div class="glass-panel chart-panel" style="padding: 10px;">
+                    <div class="panel-header small">
+                        <i class="fa-solid fa-bullseye"></i> LOCAL HAZARD RADAR (50km Radius)
+                    </div>
 
-                <div class="card glass system-bars">
-                    <h4>Subsystems</h4>
-                    <div class="bar-group">
-                        <span>Thermal Control</span>
-                        <div class="progress-bg">
-                            <div class="progress-fill" style="width: 92%;"></div>
+                    <div class="tactical-grid">
+                        <div class="radar-container">
+                            <div class="overlay-text">RANGE: 50km<br>MODE: ACTIVE SWEEP</div>
+                            <div class="hazard-alert" id="hazard-warning">⚠ COLLISION WARNING</div>
+                            <canvas id="radarCanvas" width="280" height="280"></canvas>
+                        </div>
+
+                        <div class="spectrum-container">
+                            <small style="color:var(--neon-purple); margin-bottom:5px;">RF SPECTRUM</small>
+                            <canvas id="spectrumCanvas" width="100" height="250"></canvas>
                         </div>
                     </div>
-                    <div class="bar-group">
-                        <span>Attitude Control (ADCS)</span>
-                        <div class="progress-bg">
-                            <div class="progress-fill" style="width: 88%;"></div>
-                        </div>
+                </div>
+                <br>
+
+                <div class="glass-panel" id="neo-panel"
+                    style="min-height: 250px; display: flex; flex-direction: column;">
+                    <div class="panel-header small">
+                        <i class="fa-solid fa-meteor"></i> NASA NEO FEED (TODAY)
                     </div>
-                    <div class="bar-group">
-                        <span>Edge AI Processor</span>
-                        <div class="progress-bg">
-                            <div class="progress-fill warn" style="width: 45%;"></div>
-                        </div>
+
+                    <div class="neo-header-row">
+                        <span>OBJ ID</span>
+                        <span>SIZE</span>
+                        <span>DIST (LD)</span>
+                    </div>
+
+                    <div id="neo-list" class="scrolling-list">
+                        <p class="loading-text">Scanning Deep Space...</p>
+                    </div>
+
+                    <div class="neo-footer">
+                        <span id="neo-count">0</span> OBJECTS DETECTED TODAY
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <br> <br> <br>
+
+
+    <!-- Chatbot section -->
+    <button class="chatbot-toggler" onclick="toggleChatbot()">
+        <span class="material-symbols-rounded">💬</span>
+    </button>
+
+    <div class="chatbot-popup" id="chatbot-popup">
+        <div class="chat-header">
+            <span>StellerOrbit AI Assistant</span>
+            <button class="close-btn" onclick="toggleChatbot()">×</button>
+        </div>
+
+        <ul class="chat-box" id="chat-box">
+            <li class="chat incoming">
+                <p>Hi there! How can I help you today?</p>
+            </li>
+        </ul>
+
+        <div class="chat-input">
+            <textarea id="user-input" placeholder="Enter a message..." required></textarea>
+            <button id="send-btn" class="material-symbols-rounded">➤</button>
+        </div>
+    </div>
+
 
     <script>
         // Initialize Chart.js
@@ -119,12 +184,6 @@
             }
         });
 
-        <footer>
-            <div class="footer-content">
-                <div class="logo">INNOVIO</div>
-                <p>&copy; 2025 StellarOrbitTech. All Systems Operational.</p>
-            </div>
-        </footer>
 
         // Simple Mission Timer
         let seconds = 15730;
@@ -136,6 +195,54 @@
             document.getElementById('mission-timer').innerText = "T+ " + timeString;
         }, 1000);
     </script>
+
+    <br> <br>
+
+    <footer>
+        <div class="footer-grid">
+
+            <div class="footer-col company-info">
+                <div class="footer-logo">INNOVIO</div>
+                <p class="company-tagline">Driving innovation at the intersection of technology and design.</p>
+                <p class="contact-email">Email: <a href="mailto:info@stellarorbitech.com">info@stellarorbitech.com</a>
+                </p>
+            </div>
+
+            <div class="footer-col quick-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/services.html">Services</a></li>
+                    <li><a href="/portfolio.html">Portfolio</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col legal-social">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" aria-label="LinkedIn" class="icon" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <!-- <a href="#" aria-label="Twitter" class="icon" target="_blank">
+                        <i class="fab fa-x-twitter"></i> -->
+                    </a>
+                    <a href="#" aria-label="GitHub" class="icon" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+                <div class="legal-info">
+                    <p>&copy; 2025 StellarOrbitTech | INNOVIO.</p>
+                    <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a></p>
+                    <p class="status-msg">All Systems Operational.</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script src="script1.js"></script>
 </body>
 
 </html>
