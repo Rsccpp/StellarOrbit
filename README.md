@@ -1,4 +1,4 @@
-# 🌍 SpaceVision AI  
+# 🌍 StellerOrbit 
 
 ### Satellite Image Analyzer for Disaster & Environmental Monitoring
 
@@ -20,7 +20,7 @@ It includes a FastAPI backend, modular analysis models, and a React frontend for
 
 ## 📁 Project Structure
 ```text
-SpaceVision_AI/
+StellarOrbit/
 ├── .ipynb_checkpoints/
 │   └── Train_Fire_Model-checkpoint.ipynb
 │
@@ -72,7 +72,6 @@ SpaceVision_AI/
 └── README.md
 
 ```
----
 
 ## 🚀 Features
 
