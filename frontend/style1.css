@@ -295,7 +295,7 @@ p {
     color: var(--secondary);
 }
 
-/* .cta-button {
+.cta-button {
     display: inline-block;
     margin-top: 2rem;
     padding: 12px 30px;
@@ -312,7 +312,7 @@ p {
     background: var(--primary);
     color: black;
     box-shadow: 0 0 20px var(--primary);
-} */
+}
 
 .cta-button {
     background: var(--primary);
@@ -329,7 +329,7 @@ p {
     background: var(--primary);          /* your original code */
     color: black;
     box-shadow: 0 0 20px var(--primary);
-    transform: scale(1.08);              /* << this creates the POP-OUT */
+    transform: scale(1.05);              /* << this creates the POP-OUT */
 }
 
 
@@ -426,6 +426,17 @@ p {
     font-family: var(--font-head);
 }
 
+.card.glass {
+    display: inline-block;          /* required for proper scaling */
+    transform: scale(1);            /* default size */
+    transform-origin: center;       /* grow from center */
+    transition: transform 0.15s ease;  /* smooth pop */
+}
+.card.glass:hover {
+    transform: scale(1.05);   /* pop-out effect */
+}
+
+
 /* --- Roadmap Timeline --- */
 .timeline {
     position: relative;
@@ -433,6 +444,7 @@ p {
     margin: 0 auto;
     padding-left: 30px;
     border-left: 2px solid rgba(255, 255, 255, 0.1);
+    
 }
 
 .timeline-item {
@@ -462,6 +474,51 @@ p {
     display: block;
     margin-bottom: 5px;
 }
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 30px;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-item {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -36px;
+    top: 20px;
+    width: 14px;
+    height: 14px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+/* Add THESE */
+.timeline-content {
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-origin: center;
+}
+
+.timeline-content:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--primary);
+}
+
+.timeline-content .date {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
 
 /* --- Tech Grid & Footer --- */
 .grid-2-col {
