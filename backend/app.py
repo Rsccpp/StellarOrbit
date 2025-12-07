@@ -196,14 +196,16 @@ def serve_index():
         return send_from_directory(FRONTEND_FOLDER, 'index.html')
     return send_from_directory(FRONTEND_FOLDER, 'index1.html')
 
+@app.route('/live-Ops.html')
+def serve_live_ops():
+    # This tells Flask: "When user asks for /live-ops.html, give them the file from frontend folder"
+    return send_from_directory(FRONTEND_FOLDER, 'live-Ops.html')
+
+
 @app.route('/<path:filename>')
 def serve_static_files(filename):
     return send_from_directory(FRONTEND_FOLDER, filename)
 
-@app.route('/live-ops.html')
-def serve_live_ops():
-    # This tells Flask: "When user asks for /live-ops.html, give them the file from frontend folder"
-    return send_from_directory(FRONTEND_FOLDER, 'live-ops.html')
 
 if __name__ == '__main__':
     print("🚀 StellarOrbit Backend Initialized...")
