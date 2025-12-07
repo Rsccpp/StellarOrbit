@@ -154,7 +154,7 @@ if(chatToggle) {
 
 
 // CONFIGURATION
-const API_KEY = "AIzaSyCHr0OVbaO-qGq_OyZEDkf0LN0HLV_6nXM";
+const API_KEY = "api_key";
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${API_KEY}`;
 
 const chatBox = document.getElementById("chat-box");
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const today = new Date().toISOString().split('T')[0];
         
         // NASA API URL
-        const apiKey = 'GED1soRD1Ih5x4KE1g6VUekLeoFYjf9Iy6eJyGMj'; 
+        const apiKey = 'api_key'; 
         const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`;
 
         try {
