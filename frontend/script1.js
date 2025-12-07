@@ -154,8 +154,8 @@ if(chatToggle) {
 
 
 // CONFIGURATION
-const API_KEY = "api_key";
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
+const API_KEY = "AIzaSyCHr0OVbaO-qGq_OyZEDkf0LN0HLV_6nXM";
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${API_KEY}`;
 
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
@@ -194,14 +194,22 @@ const generateResponse = async (userMessage) => {
         });
 
         const data = await response.json();
-        const botMessage = data.candidates[0].content.parts[0].text;
+        if (data.error) {
+            throw new Error(`API Error: ${data.error.message}`);
+        }
+
+        if (!data.candidates || data.candidates.length === 0) {
+            // Usually happens if the model refuses to answer
+            const feedback = data.promptFeedback ? `Safety Block: ${data.promptFeedback.blockReason}` : "No candidates returned";
+            throw new Error(feedback);
+        }
         
-        // Update the "Thinking..." message with the actual response
+        const botMessage = data.candidates[0].content.parts[0].text;
         incomingChatLi.querySelector("p").textContent = botMessage;
 
     } catch (error) {
-        incomingChatLi.querySelector("p").textContent = "Oops! Something went wrong. Please try again.";
         console.error("Error:", error);
+        incomingChatLi.querySelector("p").textContent = `Error: ${error.message}`;
     } finally {
         chatBox.scrollTo(0, chatBox.scrollHeight);
     }
@@ -376,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const today = new Date().toISOString().split('T')[0];
         
         // NASA API URL
-        const apiKey = 'api_key'; 
+        const apiKey = 'GED1soRD1Ih5x4KE1g6VUekLeoFYjf9Iy6eJyGMj'; 
         const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${today}&end_date=${today}&api_key=${apiKey}`;
 
         try {

@@ -14,12 +14,18 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
+    display: flex;
+    flex-direction: column;
     background-color: var(--bg-deep);
     color: var(--text-main);
     font-family: var(--font-body);
     min-height: 100vh;
     overflow-x: hidden;
     background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+}
+
+.content {
+    flex: 1;
 }
 
 h2, h3 {

@@ -23,6 +23,7 @@
         .body {
             background-color: black;
         }
+
         /* Map Container */
         #orbitalMap {
             height: 500px;
@@ -83,254 +84,260 @@
 </head>
 
 <body>
+    <div class="content">
 
-    <div class="stars"></div>
-    <div class="twinkling"></div>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
 
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fa-solid fa-satellite-dish"></i> StellarOrbit<span class="highlight">ORBIT</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="mission.html">Mission</a></li>
-            <li><a href="live-ops.html">Live Ops</a></li>
-            <li><a href="vision.html" class="active">Vision</a></li>
-        </ul>
-        <div class="menu-toggle" id="mobile-menu">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-    </nav>
-    <br><br><br>
-
-    <main class="dashboard-container fade-in">
-
-        <header class="mission-header">
-            <h1>Strategic <span class="highlight">Vision</span></h1>
-            <p>Building the Autonomous Neural Network of Tomorrow.</p>
-        </header>
-
-        <section class="container vision-section">
-            <div class="grid-3-col">
-                <div class="glass-panel pillar-card">
-                    <div class="icon-wrapper glow-cyan"><i class="fa-solid fa-earth-americas"></i></div>
-                    <h3>Planetary Defense</h3>
-                    <p>AI networks autonomous tracking orbital debris.</p>
-                </div>
-                <div class="glass-panel pillar-card">
-                    <div class="icon-wrapper glow-purple"><i class="fa-solid fa-satellite-dish"></i></div>
-                    <h3>Interplanetary Mesh</h3>
-                    <p>Self-organizing communications grid for the solar system.</p>
-                </div>
-                <div class="glass-panel pillar-card">
-                    <div class="icon-wrapper glow-green"><i class="fa-solid fa-user-gear"></i></div>
-                    <h3>Zero Human Lag</h3>
-                    <p>Fully autonomous mission control for routine ops.</p>
-                </div>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-satellite-dish"></i> StellarOrbit<span class="highlight">ORBIT</span>
             </div>
-        </section>
-
-        <section class="container" style="margin-top: 4rem;">
-            <div class="section-header">
-                <h2>Live Global <span class="highlight">Grid Prototype</span></h2>
-                <div class="divider"></div>
-                <p style="color: #aaa; margin-bottom: 20px;">
-                    <span class="blink" style="color:red">●</span> LIVE FEED: Tracking International Space Station (ISS)
-                </p>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mission.html">Mission</a></li>
+                <li><a href="live-Ops.html">Live Ops</a></li>
+                <li><a href="vision.html" class="active">Vision</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
             </div>
+        </nav>
+        <br><br><br>
 
-            <div class="glass-panel" style="padding: 10px;">
-                <div id="orbitalMap"></div>
+        <main class="dashboard-container fade-in">
 
-                <div class="live-data-overlay">
-                    <div class="data-card">
-                        <small>LATITUDE</small>
-                        <div class="data-value" id="lat-val">00.000</div>
+            <header class="mission-header">
+                <h1>Strategic <span class="highlight">Vision</span></h1>
+                <p>Building the Autonomous Neural Network of Tomorrow.</p>
+            </header>
+
+            <section class="container vision-section">
+                <div class="grid-3-col">
+                    <div class="glass-panel pillar-card">
+                        <div class="icon-wrapper glow-cyan"><i class="fa-solid fa-earth-americas"></i></div>
+                        <h3>Planetary Defense</h3>
+                        <p>AI networks autonomous tracking orbital debris.</p>
                     </div>
-                    <div class="data-card">
-                        <small>LONGITUDE</small>
-                        <div class="data-value" id="lon-val">00.000</div>
+                    <br>
+                    <div class="glass-panel pillar-card">
+                        <div class="icon-wrapper glow-purple"><i class="fa-solid fa-satellite-dish"></i></div>
+                        <h3>Interplanetary Mesh</h3>
+                        <p>Self-organizing communications grid for the solar system.</p>
                     </div>
-                    <div class="data-card">
-                        <small>VELOCITY (km/h)</small>
-                        <div class="data-value" id="vel-val">27,600</div>
-                    </div>
-                    <div class="data-card">
-                        <small>ALTITUDE (km)</small>
-                        <div class="data-value" id="alt-val">420</div>
+                    <br>
+                    <div class="glass-panel pillar-card">
+                        <div class="icon-wrapper glow-green"><i class="fa-solid fa-user-gear"></i></div>
+                        <h3>Zero Human Lag</h3>
+                        <p>Fully autonomous mission control for routine ops.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="container vision-quote-section" style="margin-top: 4rem;">
-            <div class="glass-panel quote-card">
-                <i class="fa-solid fa-quote-left quote-icon"></i>
-                <p class="quote-text">"Autonomy is not just faster; it is the only way forward."</p>
-                <div class="quote-source">
-                    <span class="source-name">INNOVIS DIRECTOR</span>
+            <section class="container" style="margin-top: 4rem;">
+                <div class="section-header">
+                    <h2>Live Global <span class="highlight">Grid Prototype</span></h2>
+                    <div class="divider"></div>
+                    <p style="color: #aaa; margin-bottom: 20px;">
+                        <span class="blink" style="color:red">●</span> LIVE FEED: Tracking International Space Station
+                        (ISS)
+                    </p>
                 </div>
-            </div>
-        </section>
 
-    </main>
+                <div class="glass-panel" style="padding: 10px;">
+                    <div id="orbitalMap"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
+                    <div class="live-data-overlay">
+                        <div class="data-card">
+                            <small>LATITUDE</small>
+                            <div class="data-value" id="lat-val">00.000</div>
+                        </div>
+                        <div class="data-card">
+                            <small>LONGITUDE</small>
+                            <div class="data-value" id="lon-val">00.000</div>
+                        </div>
+                        <div class="data-card">
+                            <small>VELOCITY (km/h)</small>
+                            <div class="data-value" id="vel-val">27,600</div>
+                        </div>
+                        <div class="data-card">
+                            <small>ALTITUDE (km)</small>
+                            <div class="data-value" id="alt-val">420</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-            // 1. Initialize Map
-            // Centered on 0,0 zoom level 2
-            const map = L.map('orbitalMap').setView([0, 0], 2);
+            <section class="container vision-quote-section" style="margin-top: 4rem;">
+                <div class="glass-panel quote-card">
+                    <i class="fa-solid fa-quote-left quote-icon"></i>
+                    <p class="quote-text">"Autonomy is not just faster; it is the only way forward."</p>
+                    <div class="quote-source">
+                        <span class="source-name">INNOVIS DIRECTOR</span>
+                    </div>
+                </div>
+            </section>
 
-            // 2. Add Dark Theme Layer (CartoDB Dark Matter)
-            // This makes it look like a sci-fi screen
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                attribution: '&copy; OpenStreetMap &copy; CARTO',
-                subdomains: 'abcd',
-                maxZoom: 19
-            }).addTo(map);
+        </main>
 
-            // 3. Custom Satellite Icon
-            const satelliteIcon = L.icon({
-                iconUrl: 'https://cdn-icons-png.flaticon.com/512/3212/3212580.png', // Or a local file
-                iconSize: [40, 40],
-                iconAnchor: [20, 20],
-                popupAnchor: [0, -20]
-            });
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
 
-            const marker = L.marker([0, 0], { icon: satelliteIcon }).addTo(map);
-            let firstLoad = true;
-            let path = []; // To draw the trail
+                // 1. Initialize Map
+                // Centered on 0,0 zoom level 2
+                const map = L.map('orbitalMap').setView([0, 0], 2);
 
-            // 4. Function to Fetch Data
-            async function getISSData() {
-                try {
-                    const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
-                    const data = await response.json();
+                // 2. Add Dark Theme Layer (CartoDB Dark Matter)
+                // This makes it look like a sci-fi screen
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                    attribution: '&copy; OpenStreetMap &copy; CARTO',
+                    subdomains: 'abcd',
+                    maxZoom: 19
+                }).addTo(map);
 
-                    const lat = data.latitude;
-                    const lon = data.longitude;
-                    const vel = Math.round(data.velocity);
-                    const alt = Math.round(data.altitude);
-
-                    // Update Map Marker
-                    marker.setLatLng([lat, lon]);
-
-                    // Draw Trail (Polyline)
-                    path.push([lat, lon]);
-                    if (path.length > 100) path.shift(); // Keep line strictly behind
-                    L.polyline(path, { color: '#00f3ff', weight: 2 }).addTo(map);
-
-                    // Center map on first load only (so user can pan around later)
-                    if (firstLoad) {
-                        map.setView([lat, lon], 3);
-                        firstLoad = false;
-                    }
-
-                    // Update Text Stats
-                    document.getElementById('lat-val').textContent = lat.toFixed(4);
-                    document.getElementById('lon-val').textContent = lon.toFixed(4);
-                    document.getElementById('vel-val').textContent = vel.toLocaleString();
-                    document.getElementById('alt-val').textContent = alt;
-
-                } catch (error) {
-                    console.error("Error fetching satellite data:", error);
-                }
-            }
-
-            // 5. Update every 2 seconds
-            getISSData();
-            setInterval(getISSData, 2000);
-
-            // Mobile Menu Logic
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.querySelector('.nav-links');
-            if (mobileMenu) {
-                mobileMenu.addEventListener('click', () => {
-                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '70px';
-                    navLinks.style.right = '0';
-                    navLinks.style.background = '#0b0d17';
-                    navLinks.style.width = '100%';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.zIndex = '1000';
+                // 3. Custom Satellite Icon
+                const satelliteIcon = L.icon({
+                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3212/3212580.png', // Or a local file
+                    iconSize: [40, 40],
+                    iconAnchor: [20, 20],
+                    popupAnchor: [0, -20]
                 });
-            }
-        });
-    </script>
 
-    <!-- Chatbot section -->
-    <button class="chatbot-toggler" onclick="toggleChatbot()">
-        <span class="material-symbols-rounded">💬</span>
-    </button>
+                const marker = L.marker([0, 0], { icon: satelliteIcon }).addTo(map);
+                let firstLoad = true;
+                let path = []; // To draw the trail
 
-    <div class="chatbot-popup" id="chatbot-popup">
-        <div class="chat-header">
-            <span>StellerOrbit AI Assistant</span>
-            <button class="close-btn" onclick="toggleChatbot()">×</button>
-        </div>
+                // 4. Function to Fetch Data
+                async function getISSData() {
+                    try {
+                        const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544');
+                        const data = await response.json();
 
-        <ul class="chat-box" id="chat-box">
-            <li class="chat incoming">
-                <p>Hi there! How can I help you today?</p>
-            </li>
-        </ul>
+                        const lat = data.latitude;
+                        const lon = data.longitude;
+                        const vel = Math.round(data.velocity);
+                        const alt = Math.round(data.altitude);
 
-        <div class="chat-input">
-            <textarea id="user-input" placeholder="Enter a message..." required></textarea>
-            <button id="send-btn" class="material-symbols-rounded">➤</button>
+                        // Update Map Marker
+                        marker.setLatLng([lat, lon]);
+
+                        // Draw Trail (Polyline)
+                        path.push([lat, lon]);
+                        if (path.length > 100) path.shift(); // Keep line strictly behind
+                        L.polyline(path, { color: '#00f3ff', weight: 2 }).addTo(map);
+
+                        // Center map on first load only (so user can pan around later)
+                        if (firstLoad) {
+                            map.setView([lat, lon], 3);
+                            firstLoad = false;
+                        }
+
+                        // Update Text Stats
+                        document.getElementById('lat-val').textContent = lat.toFixed(4);
+                        document.getElementById('lon-val').textContent = lon.toFixed(4);
+                        document.getElementById('vel-val').textContent = vel.toLocaleString();
+                        document.getElementById('alt-val').textContent = alt;
+
+                    } catch (error) {
+                        console.error("Error fetching satellite data:", error);
+                    }
+                }
+
+                // 5. Update every 2 seconds
+                getISSData();
+                setInterval(getISSData, 2000);
+
+                // Mobile Menu Logic
+                const mobileMenu = document.getElementById('mobile-menu');
+                const navLinks = document.querySelector('.nav-links');
+                if (mobileMenu) {
+                    mobileMenu.addEventListener('click', () => {
+                        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                        navLinks.style.flexDirection = 'column';
+                        navLinks.style.position = 'absolute';
+                        navLinks.style.top = '70px';
+                        navLinks.style.right = '0';
+                        navLinks.style.background = '#0b0d17';
+                        navLinks.style.width = '100%';
+                        navLinks.style.padding = '20px';
+                        navLinks.style.zIndex = '1000';
+                    });
+                }
+            });
+        </script>
+
+        <!-- Chatbot section -->
+        <button class="chatbot-toggler" onclick="toggleChatbot()">
+            <span class="material-symbols-rounded">💬</span>
+        </button>
+
+        <div class="chatbot-popup" id="chatbot-popup">
+            <div class="chat-header">
+                <span>StellerOrbit AI Assistant</span>
+                <button class="close-btn" onclick="toggleChatbot()">×</button>
+            </div>
+
+            <ul class="chat-box" id="chat-box">
+                <li class="chat incoming">
+                    <p>Hi there! How can I help you today?</p>
+                </li>
+            </ul>
+
+            <div class="chat-input">
+                <textarea id="user-input" placeholder="Enter a message..." required></textarea>
+                <button id="send-btn" class="material-symbols-rounded">➤</button>
+            </div>
         </div>
     </div>
+        <footer>
+            <div class="footer-grid">
 
-    <footer>
-        <div class="footer-grid">
+                <div class="footer-col company-info">
+                    <div class="footer-logo">INNOVIS</div>
+                    <p class="company-tagline">Driving innovation at the intersection of technology and design.</p>
+                    <p class="contact-email">Email: <a
+                            href="mailto:info@stellarorbitech.com">info@stellarorbitech.com</a>
+                    </p>
+                </div>
 
-            <div class="footer-col company-info">
-                <div class="footer-logo">INNOVIS</div>
-                <p class="company-tagline">Driving innovation at the intersection of technology and design.</p>
-                <p class="contact-email">Email: <a href="mailto:info@stellarorbitech.com">info@stellarorbitech.com</a>
-                </p>
-            </div>
+                <div class="footer-col quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/services.html">Services</a></li>
+                        <li><a href="/portfolio.html">Portfolio</a></li>
+                        <li><a href="/blog.html">Blog</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
 
-            <div class="footer-col quick-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/about.html">About Us</a></li>
-                    <li><a href="/services.html">Services</a></li>
-                    <li><a href="/portfolio.html">Portfolio</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col legal-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/rohitsingh0028/" aria-label="LinkedIn" class="icon" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <!-- <a href="#" aria-label="Twitter" class="icon" target="_blank">
+                <div class="footer-col legal-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/rohitsingh0028/" aria-label="LinkedIn" class="icon"
+                            target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <!-- <a href="#" aria-label="Twitter" class="icon" target="_blank">
                         <i class="fab fa-x-twitter"></i> -->
-                    </a>
-                    <a href="https://github.com/Rsccpp" aria-label="GitHub" class="icon" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
+                        </a>
+                        <a href="https://github.com/Rsccpp" aria-label="GitHub" class="icon" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <div class="legal-info">
+                        <p>&copy; 2025 StellarOrbitTech | INNOVIS.</p>
+                        <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a></p>
+                        <p class="status-msg">All Systems Operational.</p>
+                    </div>
                 </div>
-                <div class="legal-info">
-                    <p>&copy; 2025 StellarOrbitTech | INNOVIS.</p>
-                    <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a></p>
-                    <p class="status-msg">All Systems Operational.</p>
-                </div>
+
             </div>
-
-        </div>
-    </footer>
+        </footer>
 
 
-    <script src="script.js"></script>
-    <script src="script1.js"></script>
+        <script src="script.js"></script>
+        <script src="script1.js"></script>
 </body>
 
 </html>

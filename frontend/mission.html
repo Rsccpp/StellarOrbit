@@ -14,177 +14,183 @@
 </head>
 
 <body>
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    <nav class="navbar">
-        <div class="logo"> <span class="highlight">StellarOrbit</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="mission.html">Mission</a></li>
-            <li><a href="live-ops.html">Live Ops</a></li>
-            <li><a href="vision.html">Vision</a></li>
-        </ul>
-        <div class="menu-toggle" id="mobile-menu">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-    </nav>
+    <div class="content">
 
-    <br> <br> <br>
- 
-    <main class="dashboard-container fade-in">
-        
-        <header class="mission-header">
-            <h1>Orbital Analysis <span class="highlight">Command</span></h1>
-            <p>Select a protocol and upload satellite telemetry for AI processing.</p>
-        </header>
 
-        <div class="control-grid">
-            
-            <div class="glass-panel">
-                <div class="panel-header">
-                    <span class="step-number">01</span>
-                    <h3><i class="fa-solid fa-microchip"></i> Select Protocol</h3>
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <nav class="navbar">
+            <div class="logo"> <span class="highlight">StellarOrbit</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mission.html">Mission</a></li>
+                <li><a href="live-Ops.html">Live Ops</a></li>
+                <li><a href="vision.html">Vision</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </nav>
+
+        <br> <br> <br>
+
+        <main class="dashboard-container fade-in">
+
+            <header class="mission-header">
+                <h1>Orbital Analysis <span class="highlight">Command</span></h1>
+                <p>Select a protocol and upload satellite telemetry for AI processing.</p>
+            </header>
+
+            <div class="control-grid">
+
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <span class="step-number">01</span>
+                        <h3><i class="fa-solid fa-microchip"></i> Select Protocol</h3>
+                    </div>
+                    <div class="select-wrapper">
+                        <select id="analysisType">
+                            <option value="water">💧 H2O - Water Body Detection</option>
+                            <option value="fire">🔥 THERMAL - Fire Hotspots</option>
+                            <option value="crop">🌱 VEGETATION - Crop Health</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down select-arrow"></i>
+                    </div>
                 </div>
-                <div class="select-wrapper">
-                    <select id="analysisType">
-                        <option value="water">💧 H2O - Water Body Detection</option>
-                        <option value="fire">🔥 THERMAL - Fire Hotspots</option>
-                        <option value="crop">🌱 VEGETATION - Crop Health</option>
-                    </select>
-                    <i class="fa-solid fa-chevron-down select-arrow"></i>
+
+                <div class="glass-panel">
+                    <div class="panel-header">
+                        <span class="step-number">02</span>
+                        <h3><i class="fa-solid fa-upload"></i> Ingest Data</h3>
+                    </div>
+                    <div class="upload-zone" id="dropZone">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p>Click to Upload Satellite Imagery</p>
+                        <input type="file" id="imageUpload" accept="image/*">
+                    </div>
                 </div>
             </div>
 
-            <div class="glass-panel">
-                <div class="panel-header">
-                    <span class="step-number">02</span>
-                    <h3><i class="fa-solid fa-upload"></i> Ingest Data</h3>
-                </div>
-                <div class="upload-zone" id="dropZone">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <p>Click to Upload Satellite Imagery</p>
-                    <input type="file" id="imageUpload" accept="image/*">
-                </div>
-            </div>
-        </div>
-
-        <div class="action-area">
-            <button id="analyzeButton" class="cyber-btn">
-                <span class="btn-text">INITIATE ANALYSIS SEQUENCE</span>
-                <span class="btn-glitch"></span>
-            </button>
-        </div>
-
-        <div id="resultsContainer" class="results-section hidden">
-            <div class="divider"></div>
-            
-            <h2 class="section-title"> Mission Report</h2>
-            
-            <div id="loadingSpinner" class="hidden">
-                <div class="loader-ring"></div>
-                <p class="processing-text">PROCESSING ORBITAL DATA...</p>
+            <div class="action-area">
+                <button id="analyzeButton" class="cyber-btn">
+                    <span class="btn-text">INITIATE ANALYSIS SEQUENCE</span>
+                    <span class="btn-glitch"></span>
+                </button>
             </div>
 
-            <p id="statusMessage"></p>
+            <div id="resultsContainer" class="results-section hidden">
+                <div class="divider"></div>
 
-            <div id="analysisStats" class="stats-grid hidden">
-                <div class="stat-card">
-                    <p id="statsText"></p>
+                <h2 class="section-title"> Mission Report</h2>
+
+                <div id="loadingSpinner" class="hidden">
+                    <div class="loader-ring"></div>
+                    <p class="processing-text">PROCESSING ORBITAL DATA...</p>
+                </div>
+
+                <p id="statusMessage"></p>
+
+                <div id="analysisStats" class="stats-grid hidden">
+                    <div class="stat-card">
+                        <p id="statsText"></p>
+                    </div>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="img-wrapper">
+                        <div class="hud-corner top-left"></div>
+                        <div class="hud-corner bottom-right"></div>
+                        <span class="img-label">SOURCE INPUT</span>
+                        <img id="originalImage" src="" alt="Original">
+                    </div>
+                    <div class="img-wrapper active-scan">
+                        <div class="hud-corner top-left"></div>
+                        <div class="hud-corner bottom-right"></div>
+                        <span class="img-label highlight">AI PROCESSED</span>
+                        <img id="resultImage" src="" alt="Result">
+                        <div class="scan-line"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="comparison-grid">
-                <div class="img-wrapper">
-                    <div class="hud-corner top-left"></div>
-                    <div class="hud-corner bottom-right"></div>
-                    <span class="img-label">SOURCE INPUT</span>
-                    <img id="originalImage" src="" alt="Original">
-                </div>
-                <div class="img-wrapper active-scan">
-                    <div class="hud-corner top-left"></div>
-                    <div class="hud-corner bottom-right"></div>
-                    <span class="img-label highlight">AI PROCESSED</span>
-                    <img id="resultImage" src="" alt="Result">
-                    <div class="scan-line"></div> </div>
+            <br><br>
+
+        </main>
+
+        <br> <br>
+
+        <!-- Chatbot section -->
+        <button class="chatbot-toggler" onclick="toggleChatbot()">
+            <span class="material-symbols-rounded">💬</span>
+        </button>
+
+        <div class="chatbot-popup" id="chatbot-popup">
+            <div class="chat-header">
+                <span>StellerOrbit AI Assistant</span>
+                <button class="close-btn" onclick="toggleChatbot()">×</button>
             </div>
-        </div>
 
-        <br><br>
+            <ul class="chat-box" id="chat-box">
+                <li class="chat incoming">
+                    <p>Hi there! How can I help you today?</p>
+                </li>
+            </ul>
 
-    </main>
-
-    <br> <br>
-
-    <!-- Chatbot section -->
-    <button class="chatbot-toggler" onclick="toggleChatbot()">
-        <span class="material-symbols-rounded">💬</span>
-    </button>
-
-    <div class="chatbot-popup" id="chatbot-popup">
-        <div class="chat-header">
-            <span>StellerOrbit AI Assistant</span>
-            <button class="close-btn" onclick="toggleChatbot()">×</button>
-        </div>
-
-        <ul class="chat-box" id="chat-box">
-            <li class="chat incoming">
-                <p>Hi there! How can I help you today?</p>
-            </li>
-        </ul>
-
-        <div class="chat-input">
-            <textarea id="user-input" placeholder="Enter a message..." required></textarea>
-            <button id="send-btn" class="material-symbols-rounded">➤</button>
+            <div class="chat-input">
+                <textarea id="user-input" placeholder="Enter a message..." required></textarea>
+                <button id="send-btn" class="material-symbols-rounded">➤</button>
+            </div>
         </div>
     </div>
+        <footer>
+            <div class="footer-grid">
 
-    <footer>
-        <div class="footer-grid">
+                <div class="footer-col company-info">
+                    <div class="footer-logo">INNOVIS</div>
+                    <p class="company-tagline">Driving innovation at the intersection of technology and design.</p>
+                    <p class="contact-email">Email: <a
+                            href="mailto:info@stellarorbitech.com">info@stellarorbitech.com</a>
+                    </p>
+                </div>
 
-            <div class="footer-col company-info">
-                <div class="footer-logo">INNOVIS</div>
-                <p class="company-tagline">Driving innovation at the intersection of technology and design.</p>
-                <p class="contact-email">Email: <a href="mailto:info@stellarorbitech.com">info@stellarorbitech.com</a>
-                </p>
-            </div>
+                <div class="footer-col quick-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/services.html">Services</a></li>
+                        <li><a href="/portfolio.html">Portfolio</a></li>
+                        <li><a href="/blog.html">Blog</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
 
-            <div class="footer-col quick-links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="/about.html">About Us</a></li>
-                    <li><a href="/services.html">Services</a></li>
-                    <li><a href="/portfolio.html">Portfolio</a></li>
-                    <li><a href="/blog.html">Blog</a></li>
-                    <li><a href="/contact.html">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col legal-social">
-                <h3>Follow Us</h3>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/rohitsingh0028/" aria-label="LinkedIn" class="icon" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <!-- <a href="#" aria-label="Twitter" class="icon" target="_blank">
+                <div class="footer-col legal-social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/rohitsingh0028/" aria-label="LinkedIn" class="icon"
+                            target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <!-- <a href="#" aria-label="Twitter" class="icon" target="_blank">
                         <i class="fab fa-x-twitter"></i> -->
-                    </a>
-                    <a href="https://github.com/Rsccpp" aria-label="GitHub" class="icon" target="_blank">
-                        <i class="fab fa-github"></i>
-                    </a>
+                        </a>
+                        <a href="https://github.com/Rsccpp" aria-label="GitHub" class="icon" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <div class="legal-info">
+                        <p>&copy; 2025 StellarOrbitTech | INNOVIS.</p>
+                        <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a></p>
+                        <p class="status-msg">All Systems Operational.</p>
+                    </div>
                 </div>
-                <div class="legal-info">
-                    <p>&copy; 2025 StellarOrbitTech | INNOVIS.</p>
-                    <p><a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Use</a></p>
-                    <p class="status-msg">All Systems Operational.</p>
-                </div>
+
             </div>
-
-        </div>
-    </footer>
+        </footer>
 
 
-    <script src="script1.js"></script>
-    <script src="script.js"></script>
+        <script src="script1.js"></script>
+        <script src="script.js"></script>
 </body>
 
 </html>
